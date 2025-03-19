@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Đặt Chỗ</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Danh Sách Đặt Chỗ</h1>
+
+    <% if (message) { %>
+        <div class="alert <%= message.type %>">
+            <%= message.text %>
+        </div>
+    <% } %>
+    
+    <form action="/bookings/new" method="GET" style="display:inline;">
+        <button type="submit" class="add-booking-btn">Thêm đặt chỗ</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên Khách Hàng</th>
+                <th>Ngày</th>
+                <th>Giờ</th>
+                <th>Trạng Thái</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% bookings.forEach(booking => { %>
+                <tr>
+                    <td><%= booking.id %></td>
+                    <td><%= booking.customerName %></td>
+                    <td><%= booking.date %></td>
+                    <td><%= booking.time %></td>
+                    <td class="<%= booking.status.toLowerCase() %>"><%= booking.status %></td>
+                    <td class="action-buttons">
+                        <form action="/bookings/edit/<%= booking.id %>" method="GET" style="display:inline;">
+                            <button type="submit" class="edit-btn">Sửa</button>
+                        </form>
+                        <form action="/bookings/cancel/<%= booking.id %>" method="POST" style="display:inline;">
+                            <button type="submit" class="cancel-btn">Hủy</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>

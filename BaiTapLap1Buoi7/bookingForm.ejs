@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= booking ? "Chỉnh Sửa Đặt Chỗ" : "Thêm Đặt Chỗ" %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1><%= booking ? "Chỉnh Sửa Đặt Chỗ" : "Thêm Đặt Chỗ" %></h1>
+    
+    <% if (message) { %>
+        <div class="alert <%= message.type %>">
+            <%= message.text %>
+        </div>
+    <% } %>
+
+    <form action="<%= booking ? '/bookings/edit/' + booking.id : '/bookings/new' %>" method="POST">
+        <label for="customerName">Tên Khách Hàng:</label>
+        <input type="text" name="customerName" id="customerName" required value="<%= booking ? booking.customerName : '' %>">
+
+        <label for="date">Ngày:</label>
+        <input type="date" name="date" id="date" required value="<%= booking ? booking.date : '' %>">
+
+        <label for="time">Giờ:</label>
+        <input type="time" name="time" id="time" required value="<%= booking ? booking.time : '' %>">
+
+        <button type="submit"><%= booking ? "Cập Nhật" : "Đặt Chỗ" %></button>
+    </form>
+</body>
+</html>
